@@ -56,7 +56,8 @@ class App extends Component {
     axios.post('http://localhost:3333/smurfs', this.state.smurf)
       .then(res => {
         this.setState({
-          smurfs: res.data
+          smurfs: res.data,
+          smurf: emptySmurf
         })
         this.props.history.push('/')
       })
@@ -78,25 +79,29 @@ class App extends Component {
       })
   }
 
-  // populateForm = (e, id) => {
-  //   e.preventDefault();
-  //   this.setState({
-  //     smurf: this.state.smurfs.find(smurf => smurf.id === id),
-  //     isUpdating: true
-  //   })
-  //   this.props.history.push('/smurf-form')
-  // }
+  populateForm = (e, id) => {
+    e.preventDefault();
+    this.setState({
+      smurf: this.state.smurfs.find(smurf => smurf.id === id),
+      isUpdating: true
+    })
+    this.props.history.push('/smurf-form')
+  }
 
-  // updateSmurf = (e, id) => {
-  //   e.preventDefault();
-  //   axios.put(`http://localhost:3333/smurfs/${id}`)
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  // }
+  updateSmurf = id => {
+    axios.put(`http://localhost:3333/smurfs/${id}`, this.state.smurf)
+      .then(res => {
+        this.setState({
+          smurfs: res.data,
+          isUpdating: false,
+          smurf: emptySmurf
+        })
+        this.props.history.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   render() {
     return (
