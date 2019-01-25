@@ -17,4 +17,14 @@
   color: blue;
 }
 
+.Smurf {
+  border: 1px solid gray;
+  width: 30%;
+  margin: 20px auto;
+}
+
+.Smurf button {
+  margin: 15px;
+}
+
 
