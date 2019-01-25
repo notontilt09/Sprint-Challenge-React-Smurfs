@@ -3,14 +3,17 @@ import React from 'react';
 
 
 const SmurfPage = props => {
-    console.log(props);
-    // const smurfs = props.smurfs;
-    // const selected = smurfs.find(smurf => props.match.params.id === `${smurf.id}`)
+   const selectedSmurf = props.smurfs.find(smurf => props.match.params.id === `${smurf.id}`);
+   
+   if (!selectedSmurf) return <h2>Cannot find that Smurf!</h2>;
+
+
+
   return (
     <div className="Smurf">
-      <h3>{props.smurfs.name}</h3>
-      <strong>{props.smurfs.height} tall</strong>
-      <p>{props.smurfs.age} smurf years old</p>      
+      <h3>{selectedSmurf.name}</h3>
+      <strong>{selectedSmurf.height} tall</strong>
+      <p>{selectedSmurf.age} smurf years old</p>      
     </div>
   );
 };

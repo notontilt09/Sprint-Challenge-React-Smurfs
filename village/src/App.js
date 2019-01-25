@@ -138,7 +138,11 @@ class App extends Component {
         />
         <Route 
           path='/smurf/:id' 
-          render={props => <SmurfPage {...props} smurfs={this.state.smurfs} /> } 
+          render={props => 
+            <SmurfPage 
+              {...props} 
+              smurfs={this.state.smurfs} 
+            /> } 
         />  
       </div>
     );
