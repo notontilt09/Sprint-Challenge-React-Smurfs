@@ -1,3 +1,31 @@
 .App {
   text-align: center;
 }
+
+.navBar {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 30px auto;
+  width: 50%;
+}
+
+.navBar a {
+  text-decoration: none;
+  color: black;
+}
+
+.navBar .active {
+  color: blue;
+}
+
+.Smurf {
+  border: 1px solid gray;
+  width: 30%;
+  margin: 20px auto;
+}
+
+.Smurf button {
+  margin: 15px;
+}
+
+
