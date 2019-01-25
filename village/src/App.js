@@ -6,11 +6,20 @@ import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 
+
+const emptySmurf = {
+  name: '',
+  age: '',
+  height: ''
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       smurfs: [],
+      smurf: emptySmurf,
+      isUpdating: false
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -30,12 +39,26 @@ class App extends Component {
       })
   }
 
-  componentDidUpdate() {
-    axios.get('http://localhost:3333/smurfs')
+  handleChanges = e => {
+    e.persist();
+    this.setState(prevState => {
+      return {
+        smurf: {
+          ...prevState.smurf,
+          [e.target.name] : e.target.value
+        }
+      }
+    })
+  }
+
+  addSmurf = () => {
+    // add code to create the smurf using the api
+    axios.post('http://localhost:3333/smurfs', this.state.smurf)
       .then(res => {
         this.setState({
           smurfs: res.data
         })
+        this.props.history.push('/')
       })
       .catch(err => {
         console.log(err);
@@ -46,13 +69,34 @@ class App extends Component {
     e.preventDefault();
     axios.delete(`http://localhost:3333/smurfs/${id}`)
       .then(res => {
-        console.log(res);
+        this.setState({
+          smurfs: res.data
+        })
       })
       .catch(err => {
         console.log(err);
       })
-
   }
+
+  // populateForm = (e, id) => {
+  //   e.preventDefault();
+  //   this.setState({
+  //     smurf: this.state.smurfs.find(smurf => smurf.id === id),
+  //     isUpdating: true
+  //   })
+  //   this.props.history.push('/smurf-form')
+  // }
+
+  // updateSmurf = (e, id) => {
+  //   e.preventDefault();
+  //   axios.put(`http://localhost:3333/smurfs/${id}`)
+  //     .then(res => {
+  //       console.log(res);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  // }
 
   render() {
     return (
@@ -69,6 +113,8 @@ class App extends Component {
               {...props} 
               smurfs={this.state.smurfs} 
               deleteSmurf={this.deleteSmurf} 
+              updateSmurf={this.updateSmurf}
+              populateForm={this.populateForm}
             /> } 
         />
         <Route 
@@ -77,6 +123,11 @@ class App extends Component {
             <SmurfForm 
               {...props} 
               smurfs={this.state.smurfs} 
+              smurf={this.state.smurf}
+              isUpdating={this.state.isUpdating}
+              updateSmurf={this.updateSmurf}
+              handleChanges={this.handleChanges}
+              addSmurf={this.addSmurf}
             /> } 
         />
       </div>
