@@ -1,3 +1,20 @@
 .App {
   text-align: center;
 }
+
+.navBar {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 30px auto;
+  width: 50%;
+}
+
+.navBar a {
+  text-decoration: none;
+}
+
+.navBar .active {
+  color: blue;
+}
+
+
