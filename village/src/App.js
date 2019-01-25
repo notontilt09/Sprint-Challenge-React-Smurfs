@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import { Route, Link, NavLink } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import SmurfPage from './components/SmurfPage';
 
 
 const emptySmurf = {
@@ -135,6 +136,10 @@ class App extends Component {
               addSmurf={this.addSmurf}
             /> } 
         />
+        <Route 
+          path='/smurf/:id' 
+          render={props => <SmurfPage {...props} smurfs={this.state.smurfs} /> } 
+        />  
       </div>
     );
   }
